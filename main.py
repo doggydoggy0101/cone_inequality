@@ -1,9 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits import mplot3d
-
 import os
-import copy
 
 from utils import mean
 
@@ -24,19 +21,19 @@ y = np.sin(u)*np.sin(v)
 def plot_cone30():
     fig = plt.figure(figsize=(8, 4), dpi=DPI)
     ax = plt.axes(projection='3d')
-    ax.plot_surface(x, y, 2*f(x, y), alpha=0.2)
+    ax.plot_surface(x, y, 4*f(x, y), alpha=0.2)
 
-    ax1, ay1, az1  = np.array([[-1.2,0,0],[0,-1.2,0],[0,0,-0.4]])
-    ax2, ay2, az2 = np.array([[2.4,0,0],[0,2.4,0],[0,0,2.4]])
+    ax1, ay1, az1  = np.array([[-2.4,0,0],[0,-2.4,0],[0,0,-0.8]])
+    ax2, ay2, az2 = np.array([[4.8,0,0],[0,4.8,0],[0,0,4.8]])
     ax.quiver(ax1, ay1, az1, ax2, ay2, az2, arrow_length_ratio=0.06, color="black", linewidth=0.6)
-    ax.text(0,-0.05,2.04, "$x_1$", fontsize=4)
+    ax.text(0,-0.05,4.04, "$x_1$", fontsize=4)
 
     ax.view_init(azim=36, elev=10)
-    ax.set_xlim((-2,2))
-    ax.set_ylim((-2,2))
-    ax.set_zlim((-2,2))
+    ax.set_xlim((-4,4))
+    ax.set_ylim((-4,4))
+    ax.set_zlim((-4,4))
     ax.set_axis_off()
-    plt.savefig("fig/cone30.png")
+    plt.savefig("fig/cone30.pdf")
 
 def plot_cone60():
     fig = plt.figure(figsize=(8, 4), dpi=DPI)
@@ -53,7 +50,7 @@ def plot_cone60():
     ax.set_ylim((-1,1))
     ax.set_zlim((-1,1))
     ax.set_axis_off()
-    plt.savefig("fig/cone60.png")
+    plt.savefig("fig/cone60.pdf")
 
 
 def plot_cone30_min_A():
@@ -88,7 +85,7 @@ def plot_cone30_min_A():
     ax.set_ylim((-2,2))
     ax.set_zlim((-2,2))
     ax.set_axis_off()
-    plt.savefig("fig/cone30_min_A.png")
+    plt.savefig("fig/cone30_min_A.pdf")
 
 def plot_cone30_H_A():
     vec1 = np.array([1.7,0.3,-0.1])
@@ -123,7 +120,7 @@ def plot_cone30_H_A():
     ax.set_ylim((-2,2))
     ax.set_zlim((-2,2))
     ax.set_axis_off()
-    plt.savefig("fig/cone30_H_A.png")
+    plt.savefig("fig/cone30_H_A.pdf")
 
 def plot_cone30_A_max():
     vec1 = np.array([1.7,0.3,-0.1])
@@ -157,7 +154,7 @@ def plot_cone30_A_max():
     ax.set_ylim((-2,2))
     ax.set_zlim((-2,2))
     ax.set_axis_off()
-    plt.savefig("fig/cone30_A_max.png")
+    plt.savefig("fig/cone30_A_max.pdf")
 
 def plot_cone60_H_A():
     vec1 = np.array([0.6, 0, 0.4])
@@ -194,7 +191,7 @@ def plot_cone60_H_A():
     ax.set_ylim((-1,1))
     ax.set_zlim((-1,1))
     ax.set_axis_off()
-    plt.savefig("fig/cone60_H_A.png")
+    plt.savefig("fig/cone60_H_A.pdf")
 
 def plot_cone60_H_A_adjust():
     vec1 = np.array([0.6, 0, 0.4])
@@ -241,13 +238,13 @@ def plot_cone60_H_A_adjust():
     ax.set_ylim((-1,1))
     ax.set_zlim((-1,1))
     ax.set_axis_off()
-    plt.savefig("fig/cone60_H_A_adjust.png")
+    plt.savefig("fig/cone60_H_A_adjust.pdf")
 
 
 
 def main():
-    if not os.path.exists("./fig"):
-        os.makedirs("./fig")
+    if not os.path.exists("fig"):
+        os.makedirs("fig")
     plot_cone30()
     plot_cone60()
     plot_cone30_min_A()
