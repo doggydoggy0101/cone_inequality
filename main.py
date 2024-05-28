@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-from utils import mean
+from utils import mean, inCone
 
 cblue = "#2980B9"
 cgreen = "#17A589"
@@ -54,14 +54,15 @@ def plot_cone60():
 
 
 def plot_cone30_min_A():
-    vec1 = np.array([1.7,0.3,-0.1])
-    vec2 = np.array([1.7,0,0.56])
+    vec1 = np.array([1.6,0.3,-0.1])
+    vec2 = np.array([1.7,0,0.5])
     m = mean(vec1, vec2, np.pi/6)
     test = m.A - m.min
+    print(inCone(test, np.pi/6))
 
     fig = plt.figure(figsize=(8, 4), dpi=DPI)
     ax = plt.axes(projection='3d')
-    ax.plot_surface(x, y, 2*f(x, y), alpha=0.08)
+    ax.plot_surface(x, y, np.sqrt(3)*f(x, y), alpha=0.08)
 
     ax1, ay1, az1 = np.array([[-1.2,0,0],[0,-1.2,0],[0,0,-0.4]])
     ax2, ay2, az2= np.array([[2.4,0,0],[0,2.4,0],[0,0,2.4]])
@@ -78,7 +79,7 @@ def plot_cone30_min_A():
     ax.scatter(test[1], test[2], test[0], s=1, c=cred)
     ax.text(m.A[1], m.A[2]-0.08, m.A[0]+0.08, "$A(x,y)$", fontsize=4, c=cblue)
     ax.text(m.min[1], m.min[2]-0.2, m.min[0]-0.2, "$x∧y$", fontsize=4, c=cgreen)
-    ax.text(test[1], test[2]+0.08, test[0], "$A-x∧y$", fontsize=4, c=cred)
+    ax.text(test[1], test[2]+0.02, test[0]+0.06, "$A(x,y)-x∧y$", fontsize=4, c=cred)
 
     ax.view_init(azim=36, elev=10)
     ax.set_xlim((-2,2))
@@ -88,14 +89,15 @@ def plot_cone30_min_A():
     plt.savefig("fig/cone30_min_A.pdf")
 
 def plot_cone30_H_A():
-    vec1 = np.array([1.7,0.3,-0.1])
-    vec2 = np.array([1.7,0,0.56])
+    vec1 = np.array([1.6,0.3,-0.1])
+    vec2 = np.array([1.7,0,0.5])
     m = mean(vec1, vec2, np.pi/6)
     test = m.A - m.H
+    print(inCone(test, np.pi/6))
 
     fig = plt.figure(figsize=(8, 4), dpi=DPI)
     ax = plt.axes(projection='3d')
-    ax.plot_surface(x, y, 2*f(x, y), alpha=0.08)
+    ax.plot_surface(x, y, np.sqrt(3)*f(x, y), alpha=0.08)
 
     ax1, ay1, az1 = np.array([[-1.2,0,0],[0,-1.2,0],[0,0,-0.4]])
     ax2, ay2, az2= np.array([[2.4,0,0],[0,2.4,0],[0,0,2.4]])
@@ -112,8 +114,8 @@ def plot_cone30_H_A():
     ax.scatter(m.H[1], m.H[2], m.H[0], s=1, c=cgreen)
     ax.scatter(test[1], test[2], test[0], s=1, c=cred)
     ax.text(m.A[1], m.A[2]-0.08, m.A[0]+0.08, "$A(x,y)$", fontsize=4, c=cblue)
-    ax.text(m.H[1], m.H[2]-0.18, m.H[0]-0.24, "$H(x,y)$", fontsize=4, c=cgreen)
-    ax.text(test[1], test[2]-0.46, test[0], "$A-H$", fontsize=4, c=cred)
+    ax.text(m.H[1], m.H[2]-0.04, m.H[0]-0.24, "$H(x,y)$", fontsize=4, c=cgreen)
+    ax.text(test[1]+0.1, test[2]-1.22, test[0]+0.01, "$A(x,y)-H(x,y)$", fontsize=4, c=cred)
 
     ax.view_init(azim=36, elev=10)
     ax.set_xlim((-2,2))
@@ -123,14 +125,15 @@ def plot_cone30_H_A():
     plt.savefig("fig/cone30_H_A.pdf")
 
 def plot_cone30_A_max():
-    vec1 = np.array([1.7,0.3,-0.1])
-    vec2 = np.array([1.7,0,0.56])
+    vec1 = np.array([1.6,0.3,-0.1])
+    vec2 = np.array([1.7,0,0.5])
     m = mean(vec1, vec2, np.pi/6)
     test = m.max - m.A
+    print(inCone(test, np.pi/6))
 
     fig = plt.figure(figsize=(8, 4), dpi=DPI)
     ax = plt.axes(projection='3d')
-    ax.plot_surface(x, y, 2*f(x, y), alpha=0.08)
+    ax.plot_surface(x, y, np.sqrt(3)*f(x, y), alpha=0.08)
 
     ax1, ay1, az1 = np.array([[-1.2,0,0],[0,-1.2,0],[0,0,-0.4]])
     ax2, ay2, az2= np.array([[2.4,0,0],[0,2.4,0],[0,0,2.4]])
@@ -147,7 +150,7 @@ def plot_cone30_A_max():
     ax.scatter(test[1], test[2], test[0], s=1, c=cred)
     ax.text(m.A[1], m.A[2]-0.08, m.A[0]+0.08, "$A(x,y)$", fontsize=4, c=cblue)
     ax.text(m.max[1], m.max[2], m.max[0]+0.08, "$x∨y$", fontsize=4, c=cgreen)
-    ax.text(test[1], test[2]+0.08, test[0], "x∨y-$A$", fontsize=4, c=cred)
+    ax.text(test[1], test[2]+0.08, test[0]+0.04, "x∨y-$A(x,y)$", fontsize=4, c=cred)
 
     ax.view_init(azim=36, elev=10)
     ax.set_xlim((-2,2))
@@ -161,10 +164,11 @@ def plot_cone60_H_A():
     vec2 = np.array([0.6, -0.2, 0.4])
     m = mean(vec1, vec2, np.pi/3)
     test = m.A - m.H
+    print(inCone(test, np.pi/3))
 
     fig = plt.figure(figsize=(8, 4), dpi=DPI)
     ax = plt.axes(projection='3d')
-    ax.plot_surface(x, y, 0.5*f(x, y), alpha=0.08)
+    ax.plot_surface(x, y, (1/np.sqrt(3))*f(x, y), alpha=0.08)
 
     ax1, ay1, az1 = np.array([[0,0,0],[0,-0.6,0],[0,0,-0.2]])
     ax2, ay2, az2 = np.array([[0,0,0],[0,1.2,0],[0,0,1.2]])
@@ -184,7 +188,7 @@ def plot_cone60_H_A():
     ax.scatter(test[1], test[2], test[0], s=1, c=cred)
     ax.text(m.A[1], m.A[2]-0.08, m.A[0]-0.12, "$A(x,y)$", fontsize=4, c=cblue)
     ax.text(m.H[1], m.H[2]-0.08, m.H[0]-0.12, "$H(x,y)$", fontsize=4, c=cgreen)
-    ax.text(test[1], test[2], test[0]-0.08, "$A-H$", fontsize=4, c=cred)
+    ax.text(test[1], test[2], test[0]-0.08, "$A(x,y)-H(x,y)$", fontsize=4, c=cred)
 
     ax.view_init(azim=36, elev=10)
     ax.set_xlim((-1,1))
@@ -201,10 +205,11 @@ def plot_cone60_H_A_adjust():
     adjust_A = m.A.copy()
     adjust_A[0] = adjust_A[0]*np.tan(np.pi/3)
     adjust = adjust_A - m.H
+    print(inCone(adjust, np.pi/3))
 
     fig = plt.figure(figsize=(8, 4), dpi=DPI)
     ax = plt.axes(projection='3d')
-    ax.plot_surface(x, y, 0.5*f(x, y), alpha=0.08)
+    ax.plot_surface(x, y, (1/np.sqrt(3))*f(x, y), alpha=0.08)
 
     ax1, ay1, az1 = np.array([[0,0,0],[0,-0.6,0],[0,0,-0.2]])
     ax2, ay2, az2 = np.array([[0,0,0],[0,1.2,0],[0,0,1.2]])
@@ -224,7 +229,7 @@ def plot_cone60_H_A_adjust():
     ax.scatter(test[1], test[2], test[0], s=1, c=cred)
     ax.text(m.A[1], m.A[2]-0.08, m.A[0]-0.12, "$A(x,y)$", fontsize=4, c=cblue)
     ax.text(m.H[1], m.H[2]-0.08, m.H[0]-0.12, "$H(x,y)$", fontsize=4, c=cgreen)
-    ax.text(test[1], test[2], test[0]-0.08, "$A-H$", fontsize=4, c=cred)
+    ax.text(test[1], test[2], test[0]-0.08, "$A(x,y)-H(x,y)$", fontsize=4, c=cred)
 
     ax.scatter(adjust_A[1], adjust_A[2], adjust_A[0], s=2, c=cblue, marker="*")
     ax.scatter(adjust[1], adjust[2], adjust[0], s=2, c=cred, marker="*")
@@ -232,6 +237,9 @@ def plot_cone60_H_A_adjust():
 
     ax.plot([m.A[1], adjust_A[1]], [m.A[2], adjust_A[2]],[m.A[0],adjust_A[0]],'-.', linewidth=0.5, color=cblue)
     ax.plot([test[1], adjust[1]], [test[2], adjust[2]],[test[0],adjust[0]],'-.', linewidth=0.5, color=cred)
+
+    ax.text(adjust_A[1], adjust_A[2]-0.12, adjust_A[0]+0.04, "$T\cdot A(x,y)$", fontsize=4, c=cblue)
+    ax.text(0, -1.02, 0.8, "$T\cdot A(x,y)-H(x,y)$", fontsize=4, c=cred)
 
     ax.view_init(azim=36, elev=10)
     ax.set_xlim((-1,1))
